@@ -1,0 +1,7 @@
+C99
+
+Conversione stringa-intero
+https://www.geeksforgeeks.org/converting-strings-numbers-c-cpp/
+
+Conversione intero-stringa
+https://www.geeksforgeeks.org/what-is-the-best-way-in-c-to-convert-a-number-to-a-string/
