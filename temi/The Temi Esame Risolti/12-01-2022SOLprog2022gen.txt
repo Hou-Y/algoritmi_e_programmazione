@@ -1,0 +1,200 @@
+PROBLEMA DA 18 PUNTI 27/01/2022
+Primo punto
+La lettura non vale punti (ne vale molto pochi) 
+struttura dati
+
+Secondo e terzo punto + valuable
+i due 
+Problema di verifica: pt + facile (6-7 pti circa)
+
+NON fare solo una dei tre punti, il punteggio complessivo dipende dalla soluzione complessiva
+
+se è possibile scegliere ciò che permette di scriver di meno e semplificare la vita
+(NON tentare di fare più del richiesto e meno che tu non abbia il tempo per farlo)
+concentrarsi sulle parti fondamentali
+(a discrezione dello studente)
+
+il main servirà poco ma puoi vedere l'ordine delle chiamate
+
+partire dalle cose principali: in qst caso funzione di verifica e ottimizzazione
+(con 3 o 4 numeri)
+F 0 2 2 oppure 0 2 1 3
+E 0 4 3      0 4 2 6
+
+SOLUZIONE: Sherlock Holmes (analizza)
+cosa sono? celle, quadratini 1x1 ma l'insieme delle soluzioni non sono solo caselle ma devi
+ANCHE contare la lunghezza del lato quindi avremmo per ogni soluzione (caselle) avrei il numero di 
+lunghezze disponibili
+
+suggerimenti SOLUZIONE: INSIEME ORDINATO DI LUNGHEZZE
+visiti le varie possibilità con un certo ordine
+PRIMA RICORSIONE SI OCCUPA DI DETERMINARE LA LUNGHEZZA DEL PRIMO QUADRATO
+(crea tutte le lunghezze possibili)
+RICORSIONE 2: CERCA LA PRIMA CASELLA VUOTA
+backtrack
+arriva a un alg che assomiglia alle disposizioni con ripetizione delle possibili lunghezze
+ELENCO ORDINATO DI LATI DI QUADRATI
+
+TENTARE DI LINEARIZZARE QUANDO HAI UNA CONFIGURAZIONE BIDIMENSIONALE
+
+per costruzione cerca solo quelli buoni, rimuove il problema del scegliere l'angolo in alto
+PERMETTE DI RIMUOVERE ALCUNI GRATTACAPI NEL PRUNING
+
+in generale nella matrice c'è l'ordine per righe
+
+soluzione greedy o ricorsiva?
+
+breanch and bound: tipologia di pruning
+
+MAI FARE MALLOC DENTRO UNA FUNZIONE RICORSIVA (i limitarle al massimo)
+(sia malloc che rialloc)
+
+vado per riga, trovo la prossima bianca e scendo 
+
+
+
+18 PTI 9 FEB 2022 
+VICINO AL LABIRINTO per concetto di backtrack (ricorsione)
+
+cammino SEMPLICE==privo di cicli
+
+Più va dritto e meglio è (nel mentre butta un occhio sotto per capire)
+
+non deve necessariamente raggiunger un obiettivo
+
+QST è un caso di grafo planare (rimani sul piano e non sbuchi nella terza dimensione)
+
+caso particolare di grafo (ogni nodo con max 4 archi)
+NON hai bisogno di matrice di adiacenza, sei sicuro di non avere tutto connesso a tutto
+si vede direttamente
+
+Il cammino che usiamo è un cammino hamiltoniano (NON è UN CICLO HAMILTONIANO)
+NON serve sapere un algoritmo di quelli buoni, basta creare un algoritmo di ricerca
+NON è detto che quel cammino esista e chiede anche ottimizzazione
+
+3 RICHIESTE 
+
+Leggi la griglia (poco)
+
+Leggi e cose (?)
+
+Verifica che sia cammino hamiltoniano: ogni volta che percorro verifica che ciò che segno 
+rimanga zero (che con 1 avrei un ciclo)
+Se sono sopravvissuti degli zero NON è hamiltoniano
+
+2 OPZIONI:
+sequenza di vertici (coordinate)
+
+sequenza di archi (lunghezza e direzione)
+
+TATTICA: per ogni vertice prova i 3 possibili versi (NON puoi tornare indietro)
+
+
+
+
+18 PUNTI APPELLO DI GIUGNO 2022
+uno di quelli "brutti" e corti
+hai un grafo 
+domatic partition non è stata spiegata a lezione, te lo spieghiamo adesso e devi capirlo
+ADIACENTE: c'è un arco tra i due == vuol dire che se c'è il grafo, tutti quelli che stanno
+FUORI da D hanno un arco che butta in D
+dominating= chi sta dentro domina tutti: vede tutto al massimo ha distanza 1
+
+DOMATIC PARTITION: se hai suddiviso i vertici in partizioni ognuno di questi può dominare gli altri,
+ tutti quanti li raggiungi in un giorno, non ce ne sta uno privilegiato se il grafo è fatto bene
+caso limite: uso un domatic partition per coprire tutti i nodi, ne hai solo 1, non
+ti poni nemmeno il problema
+
+
+Dare un'occhiata all'esempio per capire
+
+PAssata su tutti vertici, se sei fuori e hai distanza 1 nice, se hai più di 1 cerca che nella lista di adiacenza
+ne abbia uno dentro , se è dentro nice
+
+NON ci son intersezioni e coprono tutto
+
+RICHIESTA:
+Lettura ( priorità bassa) formato di input a scelta
+scrivo numero di vertici e li elenco
+
+VERIFICA che è una partizione (non ha sovrapposizioni)
+APPLICA funzione cha faccia verifica di dominating set
+
+
+
+18 PTI SETTEMBRE  2022
+le parole ci sono già e devi cercarle
+
+symboltable con elenco di parole si fa, farlo partendo dal crucipuzzle per favore evita
+
+SE NON CHIESTO NON FARE: NON implementare di dettagli della hash
+
+L'IMPORTANTE è la funzione ad hoc di confronto, per esempio gomoku anno scorso per paramatrizzare
+le direzioni (se puoi evita di arrivare a 3 funzioni di confronto)
+
+OTTIMIZZAZIONE: 
+fase iniziale per ogni parola segnare dove sta nella griglia
+(parti dal presupposto che ogni parola compaia una volta sola, fregatene di eventuali doppioni)
+
+magari accanto al dizionario per ogni parola metti accanto un flag per preso o meno
+
+powerset delle parole (davvero evita di partire dal crucipuzzle, anche se entrambe vanno bene
+
+puoi tirare a caso e fare un powerset ma NON farlo completamente sconnesso dal problema
+diciamo che più o meno vale qualche puntincino
+
+
+12 PUNTI DEL 27 GENNAIO
+in queste la completezza conta di più
+
+ES 1 2pti
+un es di tecniche di programmazione
+prende matrice quadrata e problema di filtro o selezione
+eliminare cose e produrre matrice compatta
+se hai 0 butti via la collana
+se lo vuoi fare bene hai bisogno di flag e cose, SE DOPO 15 MINUTI NON è USCITO LASCIA PERDERE
+PASSA AD ALTRO
+
+ES2 4pti
+Verifica da albero binario di interi verifica se è BST
+per non NON sbagliare: NON limitarti a guardare solo figlio sx e dx
+TUTTO il sottoalbero sx è minore della radice e viceversa
+(errore tipico : verificare che solo il figlio sx e dx vanno bene)
+2 funzioni ricorsive: uno che visita e l'altro che ricerca il minimo e il massimo
+E SE INVECE AVESSI FATTO UNA VISITA IN ORDER?
+in ogni nodo ricordo il valore del predecessore, nella visita in order verifica che ogni volta
+il precedente sia minore del successivo
+pensarci un attimo
+
+ES3 6pti (2 minuti) (OUCH)
+grafo non orientato con matrice di adiacenza 
+click==sottografo completo (tutti sono adiacenti a tutti gli altri, c'è il numero
+massimo di archi)
+in pratica cercare delle regioni pieni di 1
+(quando ho un quadrato il più grande possibile con solo 1, ebbene hai trovato la soluzione)
+se NON è scritto scegli te se abbiamo insiemi sovrapponibili o non sovrapponibili
+(approfittane per risolvere il problema più facile)
+persone che appartengono a un solo insieme o più insiemi sono 2 problemi differenti
+PROBLEMA di partizionamento
+
+
+PER PROGRAMMAZIONE MULTIFILE FARE COME SI VUOLE, non è un problema di dove metti cosa
+
+tutte le funzioni standard non serve scriverlo
+
+Problemi pesantemente su strutture dati è difficile averlo, si trovano di più problemi su
+ricorsione e cose 
+il modello serve quasi a niente 
+
+FUNZIONI RICORSIVE SONO QUELLI CHE DEVI SCRIVERE
+un main o una lettura file piò tornare comoodo
+
+
+GUARDARE GLI ESAMI VECCHI A FARE SIMULAZIONI CON PIATTAFORMA LOCKDOWN BROWSER
+GUARDARE I SETTAGGI DELLA LINGUA 
+
+
+
+
+
+

@@ -1,0 +1,134 @@
+main
+#include "a.h"
+
+int main(){
+int **M, nr, nc;
+int N,flag, pr, pc, **MN;
+FILE *in=fopen("proposta.txt", "r");
+FILE *f=fopen("griglia.txt" , "r");
+M=getGriglia(&nr, &nc, f);
+MN=getGriglia(&pr, %pc, in);
+fscanf(in, "%d, &N);
+flag=checkprop(MN, pr, pc, *f, N);
+if(flag) printf("accettabile con %d cambi direzione", N);
+else printf("Non accettabile");
+fclose(in);
+fclose(f);
+}
+
+
+a.h
+
+typedef enum navi{su, sx, giu, dx};
+typedef enum check{white, black};
+
+typedef struct mossa{int ogi; int ogj; int passi; int dir;} *mosse;
+
+
+--------------
+a.c
+
+
+-allocazione deallocazione-
+int **malloc2d(int nr, int nc, int val);
+void free2d(int nr, int **M);
+
+
+
+
+-lettura griglia-
+
+
+int ** getGriglia(int *NR, int *NC, FILE *f){
+int i, j;
+int **M;
+
+fscanf(f, "%d %d", NR, NC);
+M=malloc2d(NR, NC, -1);
+for(i=0; i<*NR; i++){
+	for(j=0; j<*NC; j++)
+		fscanf(in, "%d", &M[i][j]);
+	}
+}
+return M;
+}
+
+
+-lettura proposta-
+
+int checkprop(int **M, int nr, int nc, FILE *in, int n){
+	int i, rmbi=0, rmbj=0, k;
+	struct mossa *camm=malloc(n*sizeof(struct mossa));
+//input ordinato dove ogni riga contiene numero passi, direzione e luogo di inizio
+for (i=0; i<n; i++){
+		fscanf(in, "%d %d %d %d", &(mossa[i].ogi), &(mossa[i].ogj), &(mossa[i].passi), &(mossa[i].dir));
+					
+			if(rmbi!=mossa[i]ogi || rmbj!=mossa[i].ogj)
+				return 0; //il cammino non parte dalla fine del pezzo precedente
+			else{	for(k=0; k<mossa[i].ogi; k++){
+			//per evitare che il cammino vada out of bound 
+				while(rmbi>0 && rmbi<nr && rmbj>0 && rmbj<nc){
+					if(mossa[i].dir==su){
+						rmbj--;
+						if(M[rmbi][rmbj]==white){ M[rmbi][rmbj]=2;}
+						else {return 0}
+						}
+					else if(mossa[i].dir==giu){
+						rmbj++;
+						if(M[rmbi][rmbj]==white) M[rmbi][rmbj]=2;
+						else return 0;
+						}
+					else if(mossa[i].dir%2!=0){ //se dispari
+							if(mossa[i].dir==1) {
+								rmbi--;
+								if(M[rmbi][rmbj]==white) M[rmbi][rmbj]=2;
+								else return 0;
+								}
+							else if(mossa[i].dir==3){
+								rmbi++;
+								if(M[rmbi][rmbj]==white) M[rmbi][rmbj]=2;
+								else return 0;
+								}
+
+						}
+					}//del while
+					}
+				//
+			}
+		}
+	}
+
+for(i=0; i<nr; i++){ //se ci sono delle caselle non toccate
+	for(j=0; j<nc; j++){
+		if(M[i][j]==white) return 0; }
+	}
+}
+return 1;
+}
+
+
+-generazione cammino-
+
+//ripetute
+void gen_r(int pos, struct mosse *sol, struct mosse *tmpsol, int cur_best; int *best, int **M, int nr, int nc){
+int r, c, i;
+if(NoMoreWhite(M, nr, nc)){
+	if(cur_best>*best){
+		copytosol(tmpsol, sol);
+		*best=cur_best;}
+return;
+	}
+r=pos/nc;
+c=pos%nc;
+//qua controllo solo che non vada out of boud e in terminazione controllo
+//il problema diventa non sostare sugli stessi spazi 
+for(i=0; i<4; i++){ //prendo mossa con lunghezza decrescente?
+//scelgo una tra le quattro direzioni dove possibile
+	if(!outofbound(i, r, c))
+		fill();
+		gen_r();
+	}
+	undo();
+//dovrei farlo come quello dei cubi oppure usare le coordinate direttamente e poi controllare se  alla fine ci sono caselle bianche
+//qua chiede di fare meno curve possibili, meglio non fare pruning e poi controllare solo alla fine?
+}

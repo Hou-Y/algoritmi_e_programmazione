@@ -1,0 +1,139 @@
+ 02/09/2022
+
+
+#include ".h"
+
+int main(){
+FILE *a, *b, *c
+square **M;
+words lettere;
+int nr, nc, np, flag, n, best=0;
+a=fopen("griglia.txt", "r");
+b=fopen("parole.txt", "r");
+c=fopen("proposta.txt", "r");
+M=readgrid(a, &nr, &nc);
+lettere=readpar(b, &np);
+flag=checkprop(c, &n, M, lettere);
+if(flag) printf("Accettabile"); 
+else printf("Non accettabile");
+solve(0,  0, 0, &best, np, ...);
+}
+
+
+-----
+.h
+
+typedef enum {orizz, vert, obliquo} orient; //qual'era l'ordine del typedef??
+typedef struct grid_s{int val; int sovrap} square; //casella di gioco, la griglia è una matrice di grid
+
+typedef struct word_s{char *par; int ind; int val;} *words;
+
+typedef struct sol_s{int corni, int cornj, int lung, orient direz, char *paro }*sol;
+
+---
+.c
+
+square **readgrid(FILE *in, int *nr, int *nc){
+	int i,j;
+	int *tmp;
+	fscanf(in, "%d %d" , nr, nc);
+	tmp=malloc(*nr* (*nc)*sizeof(int));
+	square **griglia=malloc(*nr*sizeof(square*);
+	for(i=0; i<*nr; i++){
+	*griglia=calloc(*nc*sizeof(square)); //per azzerare numero di sovrapposizioni
+	}
+	fgets(in, nr*nc, );
+	for(i=0; i<nr; i++){
+	for(j=0; j<nc; j++)
+	sscanf(tmp, "%d", &(griglia[i][j].val));
+	}
+	return griglia;
+}
+
+words readpar(FILE *in, int *n){
+	int i;
+	char tm[100];
+	words parole;
+	fscanf(in, "%d" , n);
+	parole=malloc(n*sizeof(struct word_s));
+	for(i=0; i<*n; i++){
+		fscanf(in , " %d %s" , &(parole[i].val), tm);
+		parole[i].ind=i;
+		parole[i].par=strdup(tm); //non mi ricordo più come funzio herlp
+	}
+	return parole;
+}
+
+-lettura proposta- 
+formato: numero di parole trovate 
+le coordinate della prima lettera lunghezza della parola un intero per capire se è orizzontale, verticale o obliquo, parola
+grandezza della griglia 
+numero di parole nell'elenco
+parole 
+in fondo
+int checkprop(FILE *in, int *n, square **M, words parola){
+	sol ris;
+	square **M;
+	int nr, nc, np, flag, k;
+words parola;
+	readsol(in, &ris, n);
+	if(n>np) 
+		rerturn 0;//non è stato specificato se è possibile trovare più volte la stessa parola
+//considero che non sia possibile
+	for(i=0; i<*n;i++){
+		flag=0;
+		for(j=0; j< np; j++){
+			if(strcmp(ris[i].paro, parola[j].par)==0){
+				flag=1;
+			if(ris[i].direz==oriz){ //potevo strutturarlo meglio 
+				for(k=ris[i].corni; k<ris[i].corni+ris[i].lung; k++ } //forse andava linearizzato, oramai rip però
+				M[k][ris[i].cornj].sovrap+=1; //calloc, parte da zero, massimo valore: 2
+				if(M[k][ris[i].corj].sovrap>2) return 0;}
+			if(ris[i].direz==vert){
+				for(k=ris[i].cornj; k<ris[i].cornj+ris[i].lung; k++){
+				M[ris[i].corni][k].sovrap+=1;
+				}
+				if(M[i][corni][k].sovrap>2) return 0;}
+			if(ris[i].direz==obliquo){
+				for(k=0; k<ris[i].lung; k++){
+				M[k+ris[i].corni][k+ris[i].cornj]+=1;
+				}
+				if(M[k+ris[i].corni][k+ris[i].cornj]>2) return 0;}
+		}
+		if(flag==0) return 0;
+	}
+	return 1;
+	
+}
+
+void readsol(FILE *in, sol *ris, int *n){
+	int i;
+	fscanf(in , "%d", n);
+		char tmp[100];
+	sol ris2=malloc(n*sizeof(struct sol_s));
+	for(i=0; i<*n; i++){
+		fscanf(in, "%d %d %d %d %s", &(ris[i].corni), &(ris[i].cornj), &(ris[i].lung), &(ris[i].orient), tmp) );
+	}
+	ris[i].paro=strdup(tmp);
+	*ris=ris2;
+}
+//leggere poi inserirlo nella struttura dati non sarebbe rindondante? se lo spezzettassi?
+
+//combinazioni, considero parole uniche sia quelle nella lista che quelle presenti nella griglia
+//compaiono una volta sola
+
+
+void solve(int pos, int start, int cur_max, int *best, int n, sol fin, sol temp, square **M, words lettere  ){
+	int i, r, c;
+	if(pos>nr*nc){
+	if(checkprop(..) && cur_max>=*best){
+		copysol(fin, temp);
+		*best=cur_max; return ;
+		}
+	}
+	
+	for(i=start; i<n; i++){
+		if(foundingriglia(lettere[i].par, M)){
+		solve(pos+1, start+1, ..);}
+	}
+}
