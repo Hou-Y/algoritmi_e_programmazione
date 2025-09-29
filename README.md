@@ -1,2 +1,2 @@
 # algoritmi_e_programmazione
-Corso di Algoritmi e programmazione polimi
+Corso di Algoritmi e programmazione polito
